@@ -1,5 +1,10 @@
 import requests
 from .Config import Config
+import pandas
+
+
+def to_millis(dt):
+    return int(pandas.to_datetime(dt).value / 1000000)
 
 
 def get_blocks_by_date(time_mils):

@@ -1,14 +1,8 @@
-from blockchaine_blocks_analyzer import get_blocks_by_date
-from blockchaine_blocks_analyzer import get_single_block
-from datetime import datetime
-import pandas
-
-
-def to_millis(dt):
-    return int(pandas.to_datetime(dt).value / 1000000)
-
-
 def test_get_blocks_by_date():
+    from blockchain_blocks_analyzer import get_blocks_by_date
+    from blockchain_blocks_analyzer import to_millis
+    from datetime import datetime
+
     dt = datetime(2018, 5, 17)
     dt = to_millis(dt)
     expected_empty = {'blocks': []}
@@ -283,6 +277,7 @@ def test_get_blocks_by_date():
 
 
 def test_get_single_block():
+    from blockchain_blocks_analyzer import get_single_block
     expected = {
         'hash': '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103', 'ver': 1,
         'prev_block': '00000000000007d0f98d9edca880a6c124e25095712df8952e0439ac7409738a',
