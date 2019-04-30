@@ -14,7 +14,7 @@ def generate_data(docs_list, index_name, doc_type):
         yield {
             "_index": index_name,
             "_type": doc_type,
-            "doc": doc,
+            "_source": doc,
         }
 
 

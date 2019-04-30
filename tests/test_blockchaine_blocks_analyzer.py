@@ -279,38 +279,128 @@ def test_get_blocks_by_date():
 def test_get_single_block():
     from blockchain_blocks_analyzer import get_single_block
     expected = {
-        'hash': '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103', 'ver': 1,
+        'hash': '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103',
+        'ver': 1,
         'prev_block': '00000000000007d0f98d9edca880a6c124e25095712df8952e0439ac7409738a',
         'next_block': ['0000000000000981c0f836cc249fb18744fd33458b85d00de3e7f8995f4543ec'],
-        'mrkl_root': '935aa0ed2e29a4b81e0c995c39e06995ecce7ddbebb26ed32d550a72e8200bf5', 'time': 1322131230,
-        'bits': 437129626, 'fee': 200000, 'nonce': -1330751366, 'n_tx': 22, 'size': 9195, 'block_index': 169566,
-        'main_chain': True, 'height': 154595, 'tx': [
-            {'hash': '5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba', 'ver': 1, 'vin_sz': 1,
-             'vout_sz': 1, 'size': 168, 'weight': 672, 'fee': -200000, 'relayed_by': '0.0.0.0', 'lock_time': 0,
-             'tx_index': 1939116, 'double_spend': False, 'time': 1322131230, 'block_index': 169566,
-             'block_height': 154595, 'inputs': [{'sequence': 4294967295, 'witness': '',
-                                                 'script': '70736a049a110e1a04b099a417522cfabe6d6d4e6988c831bb48c551eea50f87b3c6461ade476fe15c98bed7c6a574aca4ff3501000000000000004d696e656420627920425443204775696c6420ac1eeeed88'}],
-             'out': [
-                 {'type': 0, 'spent': True, 'value': 5000200000, 'spending_outpoints': [{'tx_index': 1944177, 'n': 0}],
-                  'script': '76a914ca975b00a8c203b8692f5a18d92dc5c2d2ebc57b88ac', 'tx_index': 1939116, 'n': 0,
-                  'addr': '1KUCp7YP5FP8ViRxhfszSUJCTAajK6viGy'}]},
-            {'hash': '7fec6bd918ee43fddebc9a7d976f3c6d31a61efb4f27482810a6b63f0e4a02d5', 'ver': 1, 'vin_sz': 1,
-             'vout_sz': 2, 'size': 259, 'weight': 1036, 'fee': 0, 'relayed_by': '0.0.0.0', 'lock_time': 0,
-             'tx_index': 1939097, 'double_spend': False, 'time': 1322131230, 'block_index': 169566,
-             'block_height': 154595, 'inputs': [{'sequence': 4294967295, 'witness': '',
-                                                 'prev_out': {'type': 0, 'spent': True, 'value': 8262537860,
-                                                              'spending_outpoints': [{'tx_index': 1939097, 'n': 0}],
-                                                              'script': '76a91495b34b7779bf8d93ab211e213fbb52900f53e16988ac',
-                                                              'tx_index': 1934441, 'n': 1,
-                                                              'addr': '1EeYUCnnCDqdjNGWK9uNWQ66FQkbr6MUBa'},
-                                                 'script': '493046022100c7784a417a5780b922dd6385bd1cc07b530794c63d6b0584378fc6dfb79d35d50221008812fd23e25549fca2ea6273e0f609f8aa93e2e822ec9a4537d57cd4fb664165014104cfe9363f2c7213bde611e57a4e16b2fb90cf3db160276e5f9f12081c718ebb3821a485866585b3fe416d1b28d4fd993db339dd38bef48da7ec4db5b618a1ce09'}],
-             'out': [
-                 {'type': 0, 'spent': True, 'value': 5000000, 'spending_outpoints': [{'tx_index': 1941577, 'n': 75}],
-                  'script': '76a91499e8943edcd38645f4a99a7173c9c42ab3e2160c88ac', 'tx_index': 1939097, 'n': 0,
-                  'addr': '1F2o1EEREuUpjK12ifRtah6SyQK29eff7y'},
-                 {'type': 0, 'spent': True, 'value': 8257537860, 'spending_outpoints': [{'tx_index': 1939475, 'n': 0}],
-                  'script': '76a9142e61d7641959b2afcaae323186c239d65df1e58488ac', 'tx_index': 1939097, 'n': 1,
-                  'addr': '15EFHxnebLB8vUAu8YmeGXaHrwgHwT5jJK'}]},
+        'mrkl_root': '935aa0ed2e29a4b81e0c995c39e06995ecce7ddbebb26ed32d550a72e8200bf5',
+        'time': 1322131230,
+        'bits': 437129626,
+        'fee': 200000,
+        'nonce': -1330751366,
+        'n_tx': 22,
+        'size': 9195,
+        'block_index': 169566,
+        'main_chain': True,
+        'height': 154595,
+        'tx': [
+            {
+                'hash': '5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba',
+                'ver': 1,
+                'vin_sz': 1,
+                'vout_sz': 1,
+                'size': 168,
+                'weight': 672,
+                'fee': -200000,
+                'relayed_by': '0.0.0.0',
+                'lock_time': 0,
+                'tx_index': 1939116,
+                'double_spend': False,
+                'time': 1322131230,
+                'block_index': 169566,
+                'block_height': 154595,
+                'inputs': [
+                    {
+                        'sequence': 4294967295,
+                        'witness': '',
+                        'script': '70736a049a110e1a04b099a417522cfabe6d6d4e6988c831bb48c551eea50f87b3c6461ade476fe15c98bed7c6a574aca4ff3501000000000000004d696e656420627920425443204775696c6420ac1eeeed88'
+                    }
+                ],
+                'out': [
+                 {
+                     'type': 0,
+                     'spent': True,
+                     'value': 5000200000,
+                     'spending_outpoints': [
+                         {
+                             'tx_index': 1944177,
+                             'n': 0
+                         }
+                     ],
+                     'script': '76a914ca975b00a8c203b8692f5a18d92dc5c2d2ebc57b88ac',
+                     'tx_index': 1939116,
+                     'n': 0,
+                     'addr': '1KUCp7YP5FP8ViRxhfszSUJCTAajK6viGy'
+                 }
+                ]
+            },
+            {
+                'hash': '7fec6bd918ee43fddebc9a7d976f3c6d31a61efb4f27482810a6b63f0e4a02d5',
+                'ver': 1,
+                'vin_sz': 1,
+                'vout_sz': 2,
+                'size': 259,
+                'weight': 1036,
+                'fee': 0,
+                'relayed_by': '0.0.0.0',
+                'lock_time': 0,
+                'tx_index': 1939097,
+                'double_spend': False,
+                'time': 1322131230,
+                'block_index': 169566,
+                'block_height': 154595,
+                'inputs': [
+                    {
+                        'sequence': 4294967295,
+                        'witness': '',
+                        'prev_out': {
+                            'type': 0,
+                            'spent': True,
+                            'value': 8262537860,
+                            'spending_outpoints': [
+                                {
+                                    'tx_index': 1939097,
+                                    'n': 0
+                                }
+                            ],
+                            'script': '76a91495b34b7779bf8d93ab211e213fbb52900f53e16988ac',
+                            'tx_index': 1934441,
+                            'n': 1,
+                            'addr': '1EeYUCnnCDqdjNGWK9uNWQ66FQkbr6MUBa'},
+                            'script': '493046022100c7784a417a5780b922dd6385bd1cc07b530794c63d6b0584378fc6dfb79d35d50221008812fd23e25549fca2ea6273e0f609f8aa93e2e822ec9a4537d57cd4fb664165014104cfe9363f2c7213bde611e57a4e16b2fb90cf3db160276e5f9f12081c718ebb3821a485866585b3fe416d1b28d4fd993db339dd38bef48da7ec4db5b618a1ce09'}],
+                'out': [
+                    {
+                        'type': 0,
+                        'spent': True,
+                        'value': 5000000,
+                        'spending_outpoints': [
+                            {
+                                'tx_index': 1941577,
+                                'n': 75
+                            }
+                        ],
+                        'script': '76a91499e8943edcd38645f4a99a7173c9c42ab3e2160c88ac',
+                        'tx_index': 1939097,
+                        'n': 0,
+                        'addr': '1F2o1EEREuUpjK12ifRtah6SyQK29eff7y'
+                    },
+                    {
+                        'type': 0,
+                        'spent': True,
+                        'value': 8257537860,
+                        'spending_outpoints': [
+                            {
+                                'tx_index': 1939475,
+                                'n': 0
+                            }
+                        ],
+                        'script': '76a9142e61d7641959b2afcaae323186c239d65df1e58488ac',
+                        'tx_index': 1939097,
+                        'n': 1,
+                        'addr': '15EFHxnebLB8vUAu8YmeGXaHrwgHwT5jJK'
+                    }
+                ]
+            },
             {'hash': 'a9300383c7b0f5fc03d495844420f25035c34c4c1abb0bdb43fed1d491bbb5e2', 'ver': 1, 'vin_sz': 1,
              'vout_sz': 2, 'size': 258, 'weight': 1032, 'fee': 0, 'relayed_by': '0.0.0.0', 'lock_time': 0,
              'tx_index': 1939095, 'double_spend': False, 'time': 1322131230, 'block_index': 169566,
@@ -788,3 +878,10 @@ def test_get_single_block():
     }
     assert get_single_block(block_hash="0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103") == expected
 
+
+def test_to_millis():
+    from blockchain_blocks_analyzer import to_millis
+    from datetime import datetime
+
+    dt = datetime(2018, 5, 17)
+    assert to_millis(dt) == 1526515200000
