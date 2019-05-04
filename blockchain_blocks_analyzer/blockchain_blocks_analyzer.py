@@ -1,5 +1,5 @@
 import requests
-from .Config import Config
+from Config import Config
 
 
 def to_millis(dt):
