@@ -1,15 +1,16 @@
-import time
+import json
+from tqdm import tqdm
 import click
 import logging
 from os import path, makedirs
+from datetime import datetime, timedelta
 from Config import conf_logger
 from Config import Config
-from datetime import datetime, timedelta
 from blockchain_blocks_analyzer import to_millis
 from blockchain_blocks_analyzer import generate_docs
 from blockchain_blocks_analyzer import get_single_block
 from blockchain_blocks_analyzer import get_blocks_by_date
-from blockchain_blocks_analyzer import add_index
+from elastic_handler import add_index
 
 
 def validate(ctx, param, value):
@@ -55,23 +56,42 @@ def btc_analyzer_cli(start_date, last_date):
         start_date, last_date = last_date, start_date
 
     # get all date range in a list
+    logger.info("calculating dates.")
     num_days = last_date - start_date
-    dates = [start_date + timedelta(days=d) for d in range(0, num_days.days)]
+    dates = [start_date + timedelta(days=d) for d in tqdm(range(0, num_days.days))]
+
     # request all the blocks between the range date.
+    logger.info("fetching all blocks hash by given date.")
     blocks_hash = []
-    for date in dates:
-        blocks = get_blocks_by_date(time_mils=to_millis(date))
-        blocks_hash.extend(list(map(lambda b: b['hash'], blocks)))
-        time.sleep(5)
+    for date in tqdm(dates):
+        try:
+            blocks = get_blocks_by_date(time_mils=to_millis(date))
+        except json.decoder.JSONDecodeError:
+            logger.error('json decode for date: {} failed.'.format(date))
+            continue
+
+        blocks_hash.extend(list(map(lambda b: b['hash'], blocks['blocks'])))
 
     # parse transaction.
+    logger.info("fetching all transaction by given block.")
     trxs = []
     for block_hash in blocks_hash:
-        trxs.extend(list(map(generate_docs, get_single_block(block_hash=block_hash))))
+        try:
+            trxs.extend(generate_docs(get_single_block(block_hash=block_hash)))
+        except json.decoder.JSONDecodeError:
+            logger.error('json decode for hash: {} failed.'.format(block_hash))
+            continue
+
+        if len(trxs) >= 50:
+            # upload date to elasticsearch
+            logger.info("uploading transactions so far to elasticsearch.")
+            add_index(es_url=conf.elasticsearch_url, body=trxs, index_name='btc_transactions', doc_type='btc_trx')
+            trxs.clear()
 
     # upload date to elasticsearch
-    for doc in trxs:
-        add_index(es_url=conf.elasticsearch_url, body=doc, index_name='btc_transactions', doc_type='btc_trx')
+    logger.info("uploading all transaction to elasticsearch.")
+    add_index(es_url=conf.elasticsearch_url, body=trxs, index_name='btc_transactions', doc_type='btc_trx')
+
     # track algorithm, after specific transaction.
     pass
 

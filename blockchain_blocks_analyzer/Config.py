@@ -26,4 +26,4 @@ class Config:
         self.block_height = "/block-height/{block_height}"
         self.single_tx = "/rawtx/{tx_hash}"
         self.single_block = "/rawblock/{block_hash}"
-        self.elasticsearch_url = ""
+        self.elasticsearch_url = "http://localhost:9200/"

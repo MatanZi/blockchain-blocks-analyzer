@@ -1,0 +1,66 @@
+{
+  "order": 1,
+  "index_patterns": [
+    "btc_transactions*"
+  ],
+  "settings": {
+     "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  },
+  "mappings": {
+    "log": {
+      "btc_trx": [
+         {
+          "base": {
+            "match_mapping_type" : "string",
+            "match" : "*",
+            "mapping" : {
+              "type" : "keyword"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "hash": {
+          "type": "text"
+        },
+        "prev_block": {
+          "type": "text"
+        },
+        "next_block": {
+          "type": "text"
+        },
+        "payer": {
+          "type": "text"
+        },
+        "payee": {
+          "type": "text"
+        },
+        "time": {
+          "type": "date",
+          "format": "epoch_second"
+        },
+        "fee": {
+          "type": "float"
+        },
+        "relayed_by": {
+          "type": "text"
+        },
+        "tx_index": {
+          "type": "text"
+        },
+        "block_index": {
+          "type": "text"
+        },
+        "spent": {
+          "type": "text"
+        },
+        "value": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}

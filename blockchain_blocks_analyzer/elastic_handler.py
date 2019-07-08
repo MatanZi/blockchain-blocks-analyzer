@@ -14,7 +14,7 @@ def generate_data(docs_list, index_name, doc_type):
         yield {
             "_index": index_name,
             "_type": doc_type,
-            "_source": doc,
+            "doc": doc,
         }
 
 
@@ -28,18 +28,18 @@ def add_index(es_url, body, index_name, doc_type):
     :return:
     """
     es = Elasticsearch([es_url])
-    bulk(es, generate_data(docs_list=body, index_name=index_name, doc_type=doc_type))
+    success, _ = bulk(es, generate_data(docs_list=body, index_name=index_name, doc_type=doc_type))
+    return success
 
 
-def set_conf(es_url, index_name, doc_type, body):
+def set_conf(es_url, index_name, body):
     """Set index configuration for first time of creating a index.
 
     :param es_url: string, an elasticsearch url to connect.
     :param body: dict, a dictionary of configuration.
-    :param doc_type: string, documents type.
     :param index_name: string, a name of an index.
     :return: status
     """
     es = Elasticsearch([es_url])
-    res = es.index(index=index_name, doc_type=doc_type, body=body)
+    res = es.indices.create(index=index_name, body=body)
     return res['result']

@@ -1,5 +1,6 @@
 import requests
 from Config import Config
+from datetime import datetime
 
 
 def to_millis(dt):
@@ -19,6 +20,8 @@ def get_blocks_by_date(time_mils):
     :param time_mils: string, date in milliseconds.
     :return:
     """
+    from time import sleep
+    sleep(5)
     config = Config()
     payload = {'format': 'json'}
     r = requests.get(config.blockchain_url + config.blocks.format(time_in_milliseconds=time_mils), params=payload)
@@ -32,6 +35,8 @@ def get_single_block(block_hash):
     :return: a single blockchain block full info.
     :rtype: json.
     """
+    from time import sleep
+    sleep(5)
     config = Config()
     payload = {'format': 'json'}
     r = requests.get(config.blockchain_url + config.single_block.format(block_hash=block_hash), params=payload)
@@ -74,6 +79,11 @@ def get_value(out_list):
             return o['value']
 
 
+def date_format(time_in_second):
+    date = datetime.fromtimestamp(time_in_second)
+    return date.isoformat(" ")
+
+
 def generate_fields(block_hash, prev_block, next_block, trans):
     """generate required fields from blocks transaction.
 
@@ -85,12 +95,12 @@ def generate_fields(block_hash, prev_block, next_block, trans):
     :rtype: dictionary.
     """
     return {
-        "block_hash":block_hash,
+        "block_hash": block_hash,
         "prev_block": prev_block,
         "next_block": next_block,
         "payer": get_payer(trans["out"]),
         "payee": trans["hash"],
-        "time": trans["time"],
+        "time": date_format(trans["time"]),
         "fee": trans["fee"],
         "relayed_by": trans["relayed_by"],
         "tx_index": trans["tx_index"],
