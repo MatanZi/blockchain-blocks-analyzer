@@ -1,3 +1,4 @@
 requests
 elasticsearch
 pandas
+neo4j
