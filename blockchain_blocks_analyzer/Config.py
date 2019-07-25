@@ -28,3 +28,8 @@ class Config:
         self.single_block = "/rawblock/{block_hash}"
         self.elasticsearch_url = "http://localhost:9200/"
         self.single_addr = "/rawaddr/{bitcoin_address}"
+        self.neo4j_credentials = {
+            'uri': 'bolt://localhost:7687',
+            'user_name': "neo4j",
+            'password': "test"
+        }
