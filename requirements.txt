@@ -2,4 +2,4 @@ py2neo
 requests
 elasticsearch
 pandas
-neo4j
+py2neo
