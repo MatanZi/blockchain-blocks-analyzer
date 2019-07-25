@@ -30,6 +30,6 @@ class Config:
         self.single_addr = "/rawaddr/{bitcoin_address}"
         self.neo4j_credentials = {
             'uri': 'bolt://localhost:7687',
-            'user_name': "neo4j",
-            'password': "test"
+            'user': "neo4j",
+            'password': "blockchain"
         }

@@ -1,0 +1,43 @@
+{
+	"node":{
+		"12t9YDPgwueZ9NyMgw519p7AA8isjr6SMw": {
+			"address": "12t9YDPgwueZ9NyMgw519p7AA8isjr6SMw",
+			"n_tx": 138,
+			"total_received": 1946410796,
+			"total_sent": 1777113037,
+			"final_balance": 169297759
+		}, 
+		"bc1qfxj65psw4e6h8unhdpp8y9spr7h939edld2zvz": {
+			"address": "bc1qfxj65psw4e6h8unhdpp8y9spr7h939edld2zvz",
+			"n_tx": None,
+			"total_received": None,
+			"total_sent": None,
+			"final_balance": None
+		},
+		"bc1qs003wgypnfqp50mfc0nc4kau8f8sv2v7d3ls8k": {
+			"address": "bc1qs003wgypnfqp50mfc0nc4kau8f8sv2v7d3ls8k",
+			"n_tx": None,
+			"total_received": None,
+			"total_sent": None,
+			"final_balance": None
+		}
+	},
+	"txs":{
+		"from": [
+			{
+				"addr": ""bc1qfxj65psw4e6h8unhdpp8y9spr7h939edld2zvz"",
+				"value": 31814
+			}
+		],
+		"to": [
+			{
+				"addr": "bc1qs003wgypnfqp50mfc0nc4kau8f8sv2v7d3ls8k",
+				"value": 31814
+			},
+			{
+				"addr": "12t9YDPgwueZ9NyMgw519p7AA8isjr6SMw",
+				"value": 4804808
+			}
+		]
+	}
+}

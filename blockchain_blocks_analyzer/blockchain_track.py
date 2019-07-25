@@ -1,5 +1,6 @@
 from Config import Config
 from requests import get
+from py2neo import Graph, GraphError
 
 
 def get_single_address(address):
@@ -46,6 +47,3 @@ def _get_info(query, params):
     """
     r = get(query, params=params)
     return r.json()
-
-
-
