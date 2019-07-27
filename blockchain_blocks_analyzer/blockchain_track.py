@@ -126,6 +126,22 @@ def initial_transaction():
         }
 
 
+def is_outcome(out, wallet):
+    """check if transaction is a outcome.
+
+    :param out: a outcome report.
+    :type out: list
+    :param wallet: a wallet address.
+    :type wallet: str
+    :return: a transaction is an outcome True, otherwise False.
+    :rtype: bool
+    """
+    for o in out:
+        if wallet == o['addr']:
+            return False
+    return True
+
+
 def generate_record(json_file):
     """generate record of address info.
 
@@ -142,6 +158,7 @@ def generate_record(json_file):
     }
 
     for tx in json_file['txs']:
+        is_out = is_outcome(out=tx['out'], wallet=json_file['address'])
         transactions = initial_transaction()
         for trans in tx['inputs']:
             trans = trans['prev_out']
@@ -157,7 +174,7 @@ def generate_record(json_file):
                 template['node'].update(generate_default_node_fields(address=trans['addr']))
             if not is_exist_update(txs=transactions['to'], tx=trans_format):
                 transactions['to'].append(trans_format)
-            if trans_format['addr'] not in template['suspicious'] and trans['addr'] != json_file['address']:
+            if is_out and trans_format['addr'] not in template['suspicious']:
                 template['suspicious'].append(trans_format['addr'])
 
         template['txs'].append(transactions.copy())
