@@ -40,7 +40,6 @@ def generate_nodes(json_file):
     node_list = []
     for addr, val in json_file['node'].items():
         node = Node("Block", **val)
-        print(node['address'])
         node_list.append(node)
     return node_list
 
