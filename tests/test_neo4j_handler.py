@@ -4,7 +4,7 @@ config = Config()
 
 def test_generate_graph():
     from blockchain_blocks_analyzer.neo4j_handler import generate_graph
-    generate_graph(credential=config.neo4j_credentials, json_file_path="../out/sample_out.json")
+    generate_graph(graph=config.neo4j_credentials, json_file="../out/sample_out.json")
 
 
 def test_connect_db():

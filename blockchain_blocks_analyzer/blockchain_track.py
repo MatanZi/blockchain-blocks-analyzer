@@ -29,7 +29,7 @@ def fetch_info(query, params):
     """
     info = _get_info(query=query, params=params)
     n_tx = info["n_tx"] - 50
-    while n_tx:
+    while n_tx > 0:
         params['offset'] += 50
         more_info = _get_info(query=query, params=params)
         info["txs"].extend(more_info["txs"])

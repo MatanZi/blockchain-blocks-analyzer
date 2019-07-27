@@ -16,17 +16,17 @@ def connect_db(credential):
         print(ge)
 
 
-def generate_graph(credential, json_file_path):
+def generate_graph(graph, json_file):
     """generate graph database from address info file.
 
-    :param credential: a user name and password and uri.
-    :type credential: dict
-    :param json_file_path: an address info file.
-    :type json_file_path: str
+    :param graph: a user name and password and uri.
+    :type graph: Graph
+    :param json_file: an address info file.
+    :type json_file: str
     :return:
     """
-    db = connect_db(credential=credential)
-    j = json.load(open(json_file_path, 'r'))
+    db = graph
+    j = json.load(open(json_file, 'r')) if type(json_file) is str else json_file
     for node in generate_nodes(j):
         node_addr = node['address']
         node_from = exist_in_graph(node_addr, db)
