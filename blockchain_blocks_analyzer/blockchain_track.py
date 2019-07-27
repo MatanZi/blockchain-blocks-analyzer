@@ -157,7 +157,7 @@ def generate_record(json_file):
                 template['node'].update(generate_default_node_fields(address=trans['addr']))
             if not is_exist_update(txs=transactions['to'], tx=trans_format):
                 transactions['to'].append(trans_format)
-            if trans_format['addr'] not in template and trans['addr'] != json_file['address']:
+            if trans_format['addr'] not in template['suspicious'] and trans['addr'] != json_file['address']:
                 template['suspicious'].append(trans_format['addr'])
 
         template['txs'].append(transactions.copy())
