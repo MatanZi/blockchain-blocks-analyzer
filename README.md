@@ -10,8 +10,7 @@ blockchain blocks analyzer, is an open source tool for analyze Bitcoin wallet ad
 # Prerequisites
 
 ## Python
-Python 3.*  
-[download here](https://www.python.org/downloads/)
+Python 3.* [download here](https://www.python.org/downloads/)
 
 ## Neo4j
 Graph database platform. ([Official site](https://neo4j.com/))  
