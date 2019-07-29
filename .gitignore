@@ -110,6 +110,6 @@ venv.bak/
 .idea/
 
 out/
-!out/api_sample.json
-!out/sample_out.json
+!*/out/api_sample.json
+!*/out/sample_out.json
 
