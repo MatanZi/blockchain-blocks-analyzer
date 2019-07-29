@@ -2,9 +2,9 @@ import setuptools
 
 
 setuptools.setup(
-    name='blockchian_block_analyzer',
+    name='blockchain_block_analyzer',
     version='1.0',
-    author='MatufA',
+    author='MatufA, MatanZi, Saimon9852',
     packages=setuptools.find_packages(),
     url='https://github.com/MatufA/blockchain-blocks-analyzer',
     description='a blocks analyzer.',

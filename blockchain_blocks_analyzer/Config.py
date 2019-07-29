@@ -1,3 +1,6 @@
+from os import environ
+
+
 def conf_logger(log_path, file_name, log_format="%(asctime)s  [%(levelname)s]  %(message)s"):
     import logging
     log_formatter = logging.Formatter(log_format)
@@ -48,6 +51,6 @@ class Config:
         self.logger_name = "btc_blocks_analyzer"
         self.neo4j_credentials = {
             'uri': 'bolt://localhost:7687',
-            'user': "blockchain",
-            'password': "blockchain"
+            'user': environ['NEO4J_USER'],
+            'password': environ['NEO4J_PASS']
         }
