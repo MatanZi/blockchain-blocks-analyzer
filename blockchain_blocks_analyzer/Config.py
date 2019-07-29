@@ -45,8 +45,9 @@ class Config:
         self.single_block = "/rawblock/{block_hash}"
         self.elasticsearch_url = "http://localhost:9200/"
         self.single_addr = "/rawaddr/{bitcoin_address}"
+        self.logger_name = "btc_blocks_analyzer"
         self.neo4j_credentials = {
             'uri': 'bolt://localhost:7687',
-            'user': "neo4j",
-            'password': "1234"
+            'user': "blockchain",
+            'password': "blockchain"
         }

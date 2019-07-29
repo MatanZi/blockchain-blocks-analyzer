@@ -2,6 +2,10 @@ from Config import Config
 from requests import get
 
 
+class ErrorAddressInfo(Exception):
+    pass
+
+
 def get_single_address(address):
     """Get a single address info.
 
@@ -26,26 +30,53 @@ def fetch_info(query, params):
     :type params: dict
     :return: a data about an address.
     :rtype: dict
+    :raise ErrorAddressInfo: in case of api didn't received info about an address.
     """
-    info = _get_info(query=query, params=params)
-    n_tx = info["n_tx"] - 50
-    while n_tx > 0:
-        params['offset'] += 50
-        more_info = _get_info(query=query, params=params)
-        info["txs"].extend(more_info["txs"])
-        n_tx -= 50
-    return info
+    try:
+        info = _get_info(query=query, params=params)
+        if not info:
+            info = _retry_query(query=query, params=params)
+        n_tx = info["n_tx"] - 50
+        while n_tx > 0:
+            params['offset'] += 50
+            more_info = _get_info(query=query, params=params)
+            if not more_info:
+                more_info = _retry_query(query=query, params=params)
+            info["txs"].extend(more_info["txs"])
+            n_tx -= 50
+        return info
+    except KeyError:
+        raise ErrorAddressInfo("can't fetch info from the api.")
+
+
+def _retry_query(query, params):
+    """retry get query 3 times.
+
+    :param query: a url.
+    :type query: str
+    :param params: an additional parameters.
+    :type params: dict
+    :return: a data about an address.
+    :rtype: dict
+    """
+    for _ in range(3):
+        info = _get_info(query=query, params=params)
+        if info:
+            return info
 
 
 def _get_info(query, params):
     """get information about an address.
 
-    :param query:
-    :param params:
-    :return:
+    :param query: a url.
+    :type query: str
+    :param params: an additional parameters.
+    :type params: dict
+    :return: a data about an address.
+    :rtype: dict
     """
-    r = get(query, params=params)
-    return r.json()
+    with get(query, params=params) as r:
+        return r.json()
 
 
 def generate_default_node_fields(address):
@@ -160,23 +191,27 @@ def generate_record(json_file):
     for tx in json_file['txs']:
         is_out = is_outcome(out=tx['out'], wallet=json_file['address'])
         transactions = initial_transaction()
+        value = 0
         if not is_out:
             for trans in tx['inputs']:
                 trans = trans['prev_out']
                 trans_format = generate_transaction(trans)
+                value += trans_format['value']
                 if trans['addr'] != json_file['address']:
                     template['node'].update(generate_default_node_fields(address=trans['addr']))
                 if not is_exist_update(txs=transactions['from'], tx=trans_format):
                     transactions['from'].append(trans_format)
+            transactions['to'].append(generate_transaction({'addr': json_file['address'], 'value': value}))
         else:
             for trans in tx['out']:
                 trans_format = generate_transaction(trans)
+                value += trans_format['value']
                 if trans['addr'] != json_file['address']:
                     template['node'].update(generate_default_node_fields(address=trans['addr']))
                 if not is_exist_update(txs=transactions['to'], tx=trans_format):
                     transactions['to'].append(trans_format)
                 if is_out and trans_format['addr'] not in template['suspicious']:
                     template['suspicious'].append(trans_format['addr'])
-
+            transactions['from'].append(generate_transaction({'addr': json_file['address'], 'value': value}))
         template['txs'].append(transactions.copy())
     return template
