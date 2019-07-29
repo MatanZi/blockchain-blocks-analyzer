@@ -109,7 +109,6 @@ venv.bak/
 # pycharm
 .idea/
 
-out/
 !*/out/api_sample.json
 !*/out/sample_out.json
-
+out/
