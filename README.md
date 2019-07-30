@@ -64,12 +64,12 @@ Setup instruction:
     ```
 
 ## Library
-Clone and setup requirements:
-    ```
-    $ git clone https://github.com/MatufA/blockchain-blocks-analyzer.git
-    $ cd blockchain-blocks-analyzer
-    $ python3 -m pip install -r requirements.txt
-    ```
+Clone and setup requirements:   
+```
+$ git clone https://github.com/MatufA/blockchain-blocks-analyzer.git  
+$ cd blockchain-blocks-analyzer  
+$ python3 -m pip install -r requirements.txt  
+```
 ### Classes
 <b>Main classes and function description:</b>
 * [Config.py](blockchain_blocks_analyzer/Config.py) - a configuration file with common function.
