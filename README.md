@@ -1,6 +1,6 @@
 # blockchain-blocks-analyzer
 blockchain blocks analyzer, is an open source tool for analyze Bitcoin wallet address
- transaction. The main propose of the tool is to track suspicious addresses
+ transaction. The main purpose of the tool is to track suspicious addresses
  transaction from income to to outcome and keep track the next wallet, which received
  money from the suspicious address. Moreover, we create a Graph database, Neo4j, which 
  represent a flow graph which starts with the income of the suspicious addresses
@@ -63,7 +63,7 @@ Setup instruction:
     $ btc-analyzer -tr "<wallet_hash>"
     ```
 
-## Library
+## Project Structure
 Clone and setup requirements:   
 ```
 $ git clone https://github.com/MatufA/blockchain-blocks-analyzer.git  
